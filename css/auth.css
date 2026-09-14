@@ -1,0 +1,143 @@
+/* ==========================================
+   ESTILOS EXCLUSIVOS: LOGIN / REGISTRO
+   ========================================== */
+
+.auth-body {
+  background: linear-gradient(rgba(46, 28, 23, 0.75), rgba(46, 28, 23, 0.75)),
+    url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Tarjeta principal con altura adaptable */
+.auth-card {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 410px;
+  padding: 2rem 1.8rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  height: auto;
+  box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
+}
+
+.auth-logo {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  margin: 0 auto 0.5rem auto;
+  display: block;
+}
+
+.auth-header-text {
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+.auth-header-text h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--dark-coffee);
+  margin-bottom: 0.2rem;
+}
+
+.auth-header-text p {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+/* Pestañas de Navegación */
+.auth-tabs {
+  display: flex;
+  background-color: #F0F0F2;
+  border-radius: 30px;
+  padding: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 0.6rem 0;
+  border: none;
+  background: transparent;
+  color: #777;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+  color: var(--primary-orange);
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Contenedor del Deslizamiento */
+.swipe-container {
+ width: 100%;
+  overflow: hidden;
+  position: relative;
+  transition: height 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.swipe-wrapper {
+  display: flex;
+  width: 200%;
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  align-items: flex-start;
+}
+
+/* Ocultamiento dinámico del formulario inactivo */
+.auth-form {
+  width: 50%;
+  padding: 0 4px;
+  box-sizing: border-box;
+}
+
+.auth-form.inactive {
+  display: none; /* Elimina completamente el espacio que ocupa el registro */
+}
+
+/* Botón y Enlaces de Recuperación */
+.btn-block {
+  width: 100%;
+  display: block;
+}
+
+.forgot-pass-link {
+  display: block;
+  text-align: right;
+  font-size: 0.8rem;
+  color: #777;
+  text-decoration: none;
+  margin-top: -0.2rem;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.forgot-pass-link:hover {
+  color: var(--primary-orange);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.info-notice {
+  font-size: 0.8rem;
+  color: #666;
+  background-color: #FFF3E0;
+  padding: 0.6rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border-left: 3px solid var(--primary-orange);
+}

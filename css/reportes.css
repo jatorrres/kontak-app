@@ -1,0 +1,223 @@
+/* ==========================================
+   ESTILOS DE REPORTES Y CONTENEDORES
+   ========================================== */
+
+.top-bar {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.top-bar h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  margin: 0;
+}
+
+.reportes-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Tarjetas KPI */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.kpi-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 1.2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-left: 5px solid var(--primary-orange);
+}
+
+.kpi-icon {
+  font-size: 2rem;
+  background: #FFF3E0;
+  padding: 0.6rem;
+  border-radius: 12px;
+}
+
+.kpi-info h4 {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #64748B;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.kpi-info .kpi-value {
+  margin: 0.2rem 0 0 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--dark-coffee);
+}
+
+/* Gráficos y Tablas dentro de Tarjetas Blancas */
+.reports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.report-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 18px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  border: 1px solid #E2E8F0;
+}
+
+.report-card h3 {
+  margin-top: 0;
+  margin-bottom: 1.2rem;
+  color: var(--dark-coffee);
+  font-size: 1.1rem;
+  border-bottom: 2px solid #F1F5F9;
+  padding-bottom: 0.5rem;
+}
+
+/* Barras de Progreso */
+.ranking-item {
+  margin-bottom: 1rem;
+}
+
+.ranking-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 0.4rem;
+}
+
+.progress-bar-bg {
+  background: #E2E8F0;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  background: var(--primary-orange);
+  height: 100%;
+  border-radius: 5px;
+}
+
+/* Tabla de Facturas */
+.table-container {
+  max-height: 280px; /* Limita la altura de la tarjeta */
+  overflow-y: auto;  /* Muestra la barra vertical si supera la altura */
+  overflow-x: auto;  /* Mantiene la compatibilidad horizontal en celulares */
+  border-radius: 8px;
+}
+.report-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #F8FAFC; /* Mantiene el color de fondo al desplazar */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.table-container::-webkit-scrollbar {
+  width: 8px;
+}
+.table-container::-webkit-scrollbar-track {
+  background: #F1F5F9;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: var(--primary-orange);
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #E68A00;
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.report-table th, 
+.report-table td {
+  padding: 0.75rem 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid #E2E8F0;
+  color: #1E293B;
+}
+
+.report-table th {
+  background: #F8FAFC;
+  color: var(--dark-coffee);
+  font-weight: 800;
+}
+
+/* Tarjeta de Exportación PDF */
+.pdf-export-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 18px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  border: 2px solid var(--primary-orange);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+.pdf-export-info h3 {
+  margin: 0 0 0.4rem 0;
+  color: var(--dark-coffee);
+  font-size: 1.15rem;
+}
+
+.pdf-export-info p {
+  margin: 0;
+  color: #64748B;
+  font-size: 0.85rem;
+}
+
+.pdf-export-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.control-group label {
+  font-weight: 800;
+  color: var(--dark-coffee);
+  font-size: 0.85rem;
+}
+
+.control-group select,
+.control-group input {
+  padding: 0.5rem 0.8rem;
+  border-radius: 10px;
+  border: 1.5px solid #CBD5E1;
+  font-weight: 700;
+  outline: none;
+  background: #FFFFFF;
+  color: var(--dark-coffee);
+  font-size: 0.85rem;
+}

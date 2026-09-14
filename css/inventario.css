@@ -1,0 +1,330 @@
+.top-bar h2 {
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.inventory-actions-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.search-box {
+  position: relative;
+  flex: 1;
+}
+
+.search-box i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748B;
+  font-size: 1rem;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 0.7rem 1rem 0.7rem 2.5rem;
+  border-radius: 10px;
+  border: 1px solid #CBD5E1;
+  background: #FFFFFF;
+  font-size: 0.95rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* Botón Agregar Producto */
+.btn-add-product {
+  white-space: nowrap;
+  padding: 0.7rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  background-color: #FF9800;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-add-product:hover {
+  background-color: #F57C00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+}
+
+.btn-add-product:active {
+  transform: translateY(0);
+}
+
+/* Tabla Estilizada */
+.table-container {
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.inventory-table th, 
+.inventory-table td {
+  padding: 1rem 0.8rem;
+  border-bottom: 1px solid #E2E8F0;
+  vertical-align: middle;
+}
+
+.inventory-table th {
+  background-color: #F8FAFC;
+  color: #475569;
+  font-weight: 700;
+}
+
+.badge-category {
+  background-color: #E2E8F0;
+  color: #334155;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badge-stock {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+}
+
+.badge-stock.in-stock { background: #FEF3C7; color: #B45309; } /* Cambiado a tonos cálidos/naranjas */
+.badge-stock.low-stock { background: #FEE2E2; color: #991B1B; }
+
+/* Botón Eliminar Fila */
+.btn-delete {
+  background-color: #EF4444;
+  color: #FFFFFF;
+  border: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.btn-delete:hover {
+  background-color: #DC2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.25);
+}
+
+.btn-delete:active {
+  transform: translateY(0);
+}
+
+/* Modal Overlay & Card */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-card {
+  background: #FFFFFF;
+  border-radius: 18px;
+  padding: 1.8rem;
+  width: 90%;
+  max-width: 460px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-card {
+  transform: scale(1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #E2E8F0;
+  padding-bottom: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #94A3B8;
+  transition: color 0.2s;
+}
+
+.btn-close:hover {
+  color: #1E293B;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.form-group input, 
+.form-group select {
+  padding: 0.65rem;
+  border-radius: 8px;
+  border: 1px solid #CBD5E1;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-row .form-group { flex: 1; }
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+/* ==========================================
+   ESTILOS DE BOTONES CON ANIMACIÓN (HOVER)
+   ========================================== */
+
+/* Botón Primario (Guardar / Acción principal) */
+.btn-primary {
+  background-color: #FF9800;
+  color: #FFFFFF;
+  border: none;
+  padding: 0.65rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #F57C00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Botón Secundario (Cancelar / Ajustes en tonos neutros) */
+.btn-secondary {
+  background-color: #E2E8F0;
+  color: #475569;
+  border: none;
+  padding: 0.65rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #CBD5E1;
+  color: #1E293B;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* Botón Configuración / Acciones secundarias destacadas (Reemplazo de azul por tono gris oscuro elegante) */
+.btn-config, .btn-action-alt {
+  background-color: #475569;
+  color: #FFFFFF;
+  border: none;
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-config:hover, .btn-action-alt:hover {
+  background-color: #334155;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(71, 85, 105, 0.3);
+}
+
+.btn-config:active, .btn-action-alt:active {
+  transform: translateY(0);
+}
+
+/* Botón Eliminar en Modal */
+.btn-delete-confirm {
+  background-color: #EF4444;
+  color: #FFFFFF;
+  border: none;
+  padding: 0.65rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-delete-confirm:hover {
+  background-color: #DC2626;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.btn-delete-confirm:active {
+  transform: translateY(0);
+}

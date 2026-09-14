@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontak - Iniciar Sesión / Registro</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-body">
+
+
+  <div class="auth-card">
+    <img src="assets/logo-kontak.png" alt="Kontak Logo" class="auth-logo">
+    
+    <div class="auth-header" style="text-align: center;">
+      <h2>Bienvenido</h2>
+      <p style="color: #888; font-size: 0.85rem;">Ingresa a tu cuenta de Kontak</p>
+    </div>
+
+    <!-- Pestañas activadoras -->
+    <div class="auth-tabs">
+      <button type="button" id="tabLogin" class="tab-btn active" onclick="switchAuthTab(0)">Iniciar sesión</button>
+      <button type="button" id="tabRegister" class="tab-btn" onclick="switchAuthTab(1)">Registrarse</button>
+    </div>
+
+    <!-- Deslizador de Formularios -->
+    <div class="swipe-container" id="swipeContainer">
+      <div class="swipe-wrapper" id="swipeWrapper">
+        
+        <!-- FORMULARIO 1: LOGIN -->
+        <form id="loginForm" class="auth-form">
+          <div class="form-group">
+            <label for="loginEmail">Correo Electrónico</label>
+            <input type="email" id="loginEmail" placeholder="you@example.com" required>
+          </div>
+          
+          <div class="form-group" style="margin-bottom: 0.5rem;">
+            <label for="loginPassword">Contraseña</label>
+            <div style="position: relative;">
+              <input type="password" id="loginPassword" placeholder="••••••••" required style="width: 100%; padding-right: 40px;">
+              <button type="button" onclick="togglePasswordVisibility('loginPassword', this)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1rem;">👁️</button>
+            </div>
+          </div>
+
+          <!-- Opciones auxiliares -->
+          <a href="#" class="forgot-pass-link" onclick="alert('Instrucciones enviadas a tu correo')">¿Olvidaste tu contraseña?</a>
+
+          <button type="submit" id="btnLogin" class="btn-primary btn-block">Ingresar</button>
+        </form>
+
+        <!-- FORMULARIO 2: REGISTRO -->
+        <form id="registerForm" class="auth-form">
+          <div class="form-group">
+            <label for="regName">Nombre Completo</label>
+            <input type="text" id="regName" placeholder="Tu nombre" required>
+          </div>
+<div class="form-group">
+  <label>Edad:</label>
+  <input type="number" id="regAge" min="15" max="99" placeholder="Ej. 25" required>
+</div>
+
+<div class="form-group">
+  <label>Sexo / Género:</label>
+  <select id="regGender" required>
+    <option value="Masculino">Masculino</option>
+    <option value="Femenino">Femenino</option>
+    <option value="Otro">Otro</option>
+    <option value="No especificado">Prefiero no decirlo</option>
+  </select>
+</div>
+          <div class="form-group">
+            <label for="regEmail">Correo Electrónico</label>
+            <input type="email" id="regEmail" placeholder="you@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="regPassword">Contraseña</label>
+            <div style="position: relative;">
+              <input type="password" id="regPassword" placeholder="••••••••" required style="width: 100%; padding-right: 40px;">
+              <button type="button" onclick="togglePasswordVisibility('regPassword', this)" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1rem;">👁️</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="regRole">Tipo de Usuario / Rol</label>
+            <select id="regRole" onchange="toggleInvitationField()" required>
+              <option value="Propietario / Administrador">Dueño / Administrador</option>
+              <option value="Cajero">Cajero / Supervisor</option>
+              <option value="Mesero">Mesero / Atendedor</option>
+            </select>
+          </div>
+
+          <!-- Campo para el Nombre del Negocio (Visible para el Dueño) -->
+          <div id="businessNameGroup" class="form-group">
+            <label for="regBusinessName">Nombre de tu Negocio / Empresa</label>
+            <input type="text" id="regBusinessName" placeholder="Ej: Restaurante Kontak">
+          </div>
+
+          <!-- Indicación para el Dueño -->
+          <div id="ownerNotice" class="info-badge" style="background:#FFF3E0; border-left: 3px solid var(--primary-orange, #ff6600); padding: 8px; font-size: 0.8rem; margin-bottom: 8px;">
+            ℹ️ Como Dueño, obtendrás un <strong>Código de Invitación</strong> para enlazar a tus empleados.
+          </div>
+
+          <!-- Campo dinámico para Empleados -->
+          <div id="inviteCodeGroup" class="form-group" style="display: none;">
+            <label for="regBusinessCode">Código de Invitación del Negocio</label>
+            <input type="text" id="regBusinessCode" placeholder="Ej: BUS-8921" style="text-transform: uppercase;">
+          </div>
+
+          <button type="submit" class="btn-primary btn-block">Crear Cuenta</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+<!-- Contenedor de notificaciones personalizado -->
+<div id="toastNotification" style="position: fixed; top: 20px; right: 20px; padding: 15px 25px; border-radius: 8px; color: white; display: none; z-index: 1000; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></div>
+
+<script>
+function showNotification(message, isError = false) {
+    const toast = document.getElementById('toastNotification');
+    toast.textContent = message;
+    toast.style.backgroundColor = isError ? '#d32f2f' : '#388e3c'; // Rojo para error, Verde para éxito
+    toast.style.display = 'block';
+    
+    // Ocultar automáticamente después de 3 segundos
+    setTimeout(() => { toast.style.display = 'none'; }, 3000);
+}
+
+</script>
+  <!-- JS Carga de Módulos -->
+  <script src="js/index.js"></script>
+  <script src="js/registro.js"></script>
+</body>
+</html>

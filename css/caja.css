@@ -1,0 +1,356 @@
+/* ==========================================
+   MÓDULO DE CAJA - AJUSTES DE DISEÑO
+   ========================================== */
+
+.top-bar {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.top-bar h2 {
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.caja-actions-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.caja-actions-bar h3 {
+  color: #FFFFFF !important;
+  font-size: 1.3rem;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* BOTÓN ROJO DE ELIMINAR (Plano y limpio) */
+.btn-remove-toggle {
+  padding: 0.6rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 10px;
+  border: none !important;
+  background-color: #EF4444 !important;
+  color: #FFFFFF !important;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: none !important;
+}
+
+.btn-remove-toggle:hover {
+  background-color: #DC2626 !important;
+  transform: translateY(-1px);
+}
+
+.btn-remove-toggle.active-mode {
+  background-color: #B91C1C !important;
+}
+
+/* Grilla de Tarjetas */
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 1.2rem;
+  justify-content: center;
+}
+
+.order-card {
+  position: relative;
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 1.2rem;
+  border: 2px solid #CBD5E1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* CHECKBOX DE ELIMINACIÓN */
+.delete-checkbox {
+  display: none;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #EF4444;
+}
+
+.delete-mode .delete-checkbox {
+  display: block;
+}
+
+/* ESTADOS DE LAS TARJETAS */
+.order-card.status-disponible { 
+  border-color: #CBD5E1; 
+  background-color: #F8FAFC; 
+}
+.order-card.status-disponible .card-title-text { color: #1E293B !important; font-weight: 800; }
+.order-card.status-disponible .card-subtitle-text { color: #64748B !important; }
+.order-card.status-disponible .order-total-preview { color: #16A34A !important; }
+
+/* TARJETA OCUPADA (Naranja) */
+.order-card.status-pendiente { 
+  border-color: #F59E0B; 
+  background-color: #FFB703; 
+}
+
+.order-card.status-pendiente .card-title-text { 
+  color: #111827 !important; 
+  font-weight: 900; 
+}
+
+.order-card.status-pendiente .card-subtitle-text { 
+  color: #FFFFFF !important; 
+  font-weight: 700; 
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.order-card.status-pendiente .order-total-preview { 
+  color: #0b4e23 !important; 
+  font-weight: 900; 
+  font-size: 1.2rem;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.badge-status {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-top: 0.4rem;
+}
+
+.status-disponible .badge-status { background: #E2E8F0; color: #475569; }
+.status-pendiente .badge-status { background: #111827; color: #FFFFFF; }
+
+/* OVERLAY Y MODALES */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.checkout-panel {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 1.8rem;
+  width: 90%;
+  max-width: 480px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-overlay.active .checkout-panel {
+  transform: scale(1);
+}
+
+.checkout-header {
+  border-bottom: 1.5px solid #E2E8F0;
+  padding-bottom: 0.8rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #777;
+}
+
+.add-item-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.add-item-bar select {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #CBD5E1;
+  font-size: 0.85rem;
+  outline: none;
+}
+
+.btn-add-item {
+  padding: 0.5rem 0.8rem;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.items-list {
+  max-height: 220px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+  border: 1px solid #F1F5F9;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.checkout-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed #E2E8F0;
+  font-size: 0.85rem;
+}
+
+.item-qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.btn-qty {
+  background: #f0e2e2;
+  border: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-qty:hover {
+  background: #e1cbcb;
+}
+
+.btn-remove-item {
+  background: transparent;
+  border: none;
+  color: #EF4444;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-left: 0.4rem;
+}
+
+.payment-methods {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.8rem 0;
+}
+
+.pay-btn {
+  flex: 1;
+  padding: 0.55rem;
+  border: 1.5px solid #CBD5E1;
+  background: #FAFAFC;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.pay-btn.active {
+  border-color: #FF9800;
+  background: #FFF3E0;
+  color: #E65100;
+}
+
+.checkout-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.btn-primary {
+  background-color: #FF9800;
+  color: #FFFFFF;
+  border: none;
+  padding: 0.65rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #F57C00;
+}
+
+.btn-secondary {
+  background-color: #E2E8F0;
+  color: #475569;
+  border: none;
+  padding: 0.65rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.delete-btn-confirm {
+  background-color: #EF4444 !important;
+  color: #FFFFFF !important;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.6rem;
+}
+
+/* ESTILOS PARA EL MODO ELIMINACIÓN Y SELECCIÓN */
+.delete-mode .order-card {
+  border: 2px dashed #EF4444;
+  cursor: pointer;
+}
+
+.delete-mode .order-card:has(.delete-checkbox:checked) {
+  background-color: #FEE2E2 !important;
+  border: 3px solid #DC2626 !important;
+  transform: scale(0.98);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+}
+
+.delete-mode .order-card:has(.delete-checkbox:checked) .card-title-text {
+  color: #991B1B !important;
+}

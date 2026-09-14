@@ -1,0 +1,409 @@
+/* ==========================================
+   ESTILOS GLOBALES Y SIDEBAR PESTAÑA FIJA
+   ========================================== */
+
+:root {
+  --primary-orange: #FF9800;
+  --dark-coffee: #2D1B18;
+  --sidebar-bg: #1E1B18;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('../assets/background-coffee.jpg') no-repeat center center fixed;
+  background-size: cover;
+  background-color: #12100E; /* Fondo oscuro de respaldo */
+  color: #333;
+}
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Área de Contenido Principal (Izquierda) */
+.main-content {
+  margin-right: 250px;
+  margin-left: 0;
+  flex: 1;
+  padding: 2rem;
+  box-sizing: border-box;
+  transition: margin-right 0.3s ease;
+}
+
+.main-content.expanded {
+  margin-right: 40px;
+}
+
+/* Sidebar Fijo (Derecha) */
+.sidebar {
+  width: 250px;
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem 1rem;
+  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  box-sizing: border-box;
+  /* Transición fluida para computadoras */
+  transition: transform 0.3s ease, width 0.3s ease;
+  transform: translateX(0); /* <--- AGREGA ESTA LÍNEA AQUÍ */
+}
+
+/* Estado Colapsado */
+.sidebar.collapsed {
+ transform: translateX(calc(100% - 40px)) !important;
+}
+
+/* Capa de clic para abrir cuando está colapsado */
+.sidebar-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 100%;
+  cursor: pointer;
+  z-index: 101;
+}
+
+.sidebar.collapsed .sidebar-overlay {
+  display: block;
+}
+
+.sidebar.collapsed:hover {
+  background: #2a2521;
+}
+
+/* Logo */
+.logo-container {
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+}
+
+.logo-container img {
+  max-width: 130px;
+  display: block;
+  margin: 0 auto 2rem auto;
+  transition: max-width 0.3s ease;
+}
+
+.sidebar.collapsed .logo-container img {
+  max-width: 28px;
+  margin: 0 auto;
+}
+
+/* Ocultar menú interno en colapso */
+.sidebar.collapsed .sidebar-nav,
+.sidebar.collapsed .sidebar-bottom {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+}
+
+.sidebar-nav, .sidebar-bottom {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease 0.1s;
+}
+
+/* Menú Navegación */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1rem;
+  color: #CBD5E1;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.nav-item i {
+  font-size: 1.2rem;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+.nav-item.active {
+  background: var(--primary-orange);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+}
+
+/* Botón Cerrar Sesión */
+.logout-btn {
+  background: rgba(239, 68, 68, 0.15);
+  color: #F87171;
+}
+
+.logout-btn:hover {
+  background: #EF4444;
+  color: #FFFFFF;
+}
+
+/* Botón Primario */
+.btn-primary {
+  background: var(--primary-orange);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.4rem;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.btn-primary:hover {
+  background: #E68A00;
+  transform: translateY(-2px);
+}
+.login-card form,
+.auth-container form,
+.modal-login form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.login-card label,
+.auth-container label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+  gap: 4px;
+}
+
+.login-card input,
+.login-card select,
+.auth-container input,
+.auth-container select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+body.auth-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+.auth-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+}
+
+/* Formulario y grupos de entradas */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+  width: 100%;
+}
+
+.auth-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.auth-form label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Ajuste total de campos de entrada y select */
+.auth-form input,
+.auth-form select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+  border-color: var(--primary-orange);
+}
+
+/* Enlace Olvidaste tu contraseña */
+.forgot-pass-link {
+  display: block;
+  font-size: 0.8rem;
+  color: #666;
+  text-decoration: none;
+  text-align: right;
+  margin-top: -4px;
+  margin-bottom: 8px;
+}
+
+.forgot-pass-link:hover {
+  color: var(--primary-orange);
+  text-decoration: underline;
+}
+
+/* Botón de ancho completo */
+.btn-block {
+  width: 100%;
+  display: block;
+}
+.main-content h2, 
+.main-content h3 {
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.table-container {
+  background: rgba(255, 255, 255, 0.95) !important; /* Fondo semitransparente legible */
+  backdrop-filter: blur(8px);
+}
+/* Estilos y animaciones para los botones de gestión de categorías */
+.btn-category-action {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.btn-category-action:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.btn-category-action:active {
+  transform: translateY(0);
+}
+/* Animación general y efectos hover para botones interactivos */
+.btn-kontak, 
+.btn-category-action, 
+.modal-content button[type="submit"], 
+.modal-content button[type="button"] {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.btn-kontak:hover, 
+.btn-category-action:hover, 
+.modal-content button[type="submit"]:hover, 
+.modal-content button[type="button"]:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.btn-kontak:active, 
+.btn-category-action:active, 
+.modal-content button[type="submit"]:active, 
+.modal-content button[type="button"]:active {
+  transform: translateY(0);
+}
+/* ==========================================
+   DISEÑO RESPONSIVO Y ADAPTACIÓN MÓVIL
+   ========================================== */
+
+@media screen and (max-width: 768px) {
+  /* Layout general adaptable */
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .main-content {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    padding: 1rem !important;
+    width: 100% !important;
+  }
+
+  /* El sidebar se convierte en un panel lateral deslizante */
+ .sidebar {
+    width: 250px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 9999;
+  }
+  .sidebar.collapsed {
+    transform: translateX(100%) !important;
+  }
+
+  /* Clase que activa la apertura del sidebar en móviles */
+  .sidebar.mobile-open {
+    transform: translateX(0) !important;
+  }
+
+  /* Tarjetas y grillas adaptadas */
+  .auth-card, .login-card, .checkout-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 1.2rem !important;
+    box-sizing: border-box !important;
+  }
+
+  .orders-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Botón flotante para abrir el menú en móviles */
+  .mobile-menu-btn {
+    display: flex !important;
+  }
+}
+
+/* Ocultar el botón hamburguesa en pantallas de escritorio */
+.mobile-menu-btn {
+  display: none;
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 1000;
+  background: var(--primary-orange);
+  color: white;
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}

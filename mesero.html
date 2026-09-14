@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontak - Módulo de Mesero</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/mesero.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+<<!-- Botón flotante para abrir el menú en móviles -->
+<button class="mobile-menu-btn" onclick="toggleMobileSidebar()">
+  <i class="bi bi-list"></i>
+</button>
+  <div class="app-layout">
+    <!-- Contenido Principal -->
+    <main class="main-content" id="mainContent">
+      <div class="top-bar">
+        <h2>Módulo de pedidos</h2>
+      </div>
+
+      <div class="mesero-layout">
+        <!-- Selector de Ubicación / Referencia Dividido -->
+        <div class="mesa-selector">
+          <div class="mesa-input-container" style="display: flex; gap: 8px; align-items: center; width: 100%;">
+            <!-- Parte Izquierda (Marrón): Tipo editable -->
+            <input 
+              type="text" 
+              id="tipoReferenciaInput" 
+              value="Mesa" 
+              oninput="actualizarTipoYReferencia()"
+              title="Edita el tipo (Ej: Mesa, Puesto, Caja)"
+              style="flex: 1; font-weight: bold; background: rgba(255,255,255,0.15); color: inherit; border: 1px dashed rgba(255,255,255,0.4); padding: 8px; border-radius: 6px; text-align: center;"
+            >
+            
+            <!-- Parte Dereca (Blanca): Solo número o código -->
+            <input 
+              type="text" 
+              id="inputNumeroReferencia" 
+              placeholder="Ej: 2, 6, 14..." 
+              value=""
+              oninput="actualizarTipoYReferencia()"
+              onkeyup="actualizarTipoYReferencia()"
+              style="flex: 1.5; padding: 8px; border-radius: 6px; border: 1px solid #ccc;"
+            >
+          </div>
+          <!-- Datalist por si requieres sugerencias automáticas -->
+          <datalist id="listMesas"></datalist>
+        </div>
+
+        <!-- Menú y Filtros -->
+        <section class="menu-section">
+          <!-- Buscador Rápido -->
+          <input 
+            type="text" 
+            id="searchInput" 
+            class="search-box" 
+            placeholder="🔍 Buscar producto..." 
+            oninput="filterProducts()"
+          >
+
+          <!-- Filtro por Categorías -->
+          <div class="categories-bar">
+            <button class="category-btn active" onclick="filterCategory('todos', this)">Todos</button>
+            <button class="category-btn" onclick="filterCategory('comidas', this)">Comidas</button>
+            <button class="category-btn" onclick="filterCategory('bebidas', this)">Bebidas</button>
+            <button class="category-btn" onclick="filterCategory('postres', this)">Postres</button>
+          </div>
+
+          <!-- Lista Dinámica de Productos -->
+          <div class="products-grid" id="productsGrid">
+            <!-- Renderizado dinámico con JS -->
+          </div>
+        </section>
+
+        <!-- Resumen del Pedido -->
+        <section class="order-summary">
+          <div class="order-summary-header">
+            <span>Comanda Actual - <span id="currentMesaLabel">Sin seleccionar</span></span>
+          </div>
+
+          <div class="order-items-list" id="orderItemsList">
+            <p style="color: #888; text-align: center; font-size: 0.85rem;">No hay productos agregados.</p>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 1.2rem; margin-bottom: 1rem; color: var(--dark-coffee);">
+            <span>Total:</span>
+            <span id="orderTotal">$ 0</span>
+          </div>
+
+          <button class="btn-primary btn-block" onclick="sendOrder()">
+            🚀 Enviar Comanda a Caja / Cocina
+          </button>
+        </section>
+      </div>
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+  <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <div class="sidebar-top">
+    <!-- Cambiar toggleMobileSidebar() por toggleSidebar() aquí -->
+    <div class="logo-container" onclick="toggleSidebar()" title="Alternar menú">
+      <img src="assets/logo-kontak.png" alt="Kontak Logo">
+    </div>
+    <nav class="sidebar-nav"></nav>
+  </div>
+  <div class="sidebar-bottom">
+    <a href="index.html" class="nav-item logout-btn"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a>
+  </div>
+</aside>
+
+ <script src="js/sidebar.js"></script>
+ <script src="js/mesero.js"></script>
+  
+  <script>
+    // Función unificada que detecta si estás en PC o Celular al hacer clic en el logo
+    window.toggleSidebar = function() {
+      const sidebar = document.getElementById('sidebar');
+      if (!sidebar) return;
+
+      if (window.innerWidth <= 768) {
+        // En móviles, abre o cierra el panel lateral deslizante
+        sidebar.classList.toggle('mobile-open');
+      } else {
+        // En escritorio, colapsa o expande el menú y mueve el contenido
+        sidebar.classList.toggle('collapsed');
+        const mainContent = document.getElementById('mainContent');
+        if (mainContent) {
+          mainContent.classList.toggle('expanded');
+        }
+      }
+    };
+
+    window.toggleMobileSidebar = function() {
+      const sidebar = document.getElementById('sidebar');
+      if (sidebar) {
+        sidebar.classList.toggle('mobile-open');
+      }
+    };
+  </script>
+</body>
+</html>
