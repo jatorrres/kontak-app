@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const res = await (`http://localhost:3000/api/usuarios/perfil/${currentUserEmail}`);
+      const res = await (`/api/usuarios/perfil/${currentUserEmail}`);
       const datos = await res.json();
 
       if (datos.success && datos.data.negocioId) {

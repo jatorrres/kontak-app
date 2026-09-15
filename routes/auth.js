@@ -170,12 +170,13 @@ router.post('/recuperar', async (req, res) => {
     // Generar una contraseña temporal aleatoria
     const passwordTemporal = 'TMP-' + Math.floor(1000 + Math.random() * 9000);
     
-    // Guardarla en el usuario (si usas encriptación de hash, recuerda aplicarla aquí)
+    // Guardarla en el usuario (si usas hash/bcrypt en tu modelo, recuerda cómo manejas la contraseña, aquí se asigna directo como lo tenías)
     usuario.password = passwordTemporal;
     await usuario.save();
 
     return res.json({ 
       success: true, 
+      passwordTemporal: passwordTemporal,
       message: `Contraseña temporal generada con éxito: ${passwordTemporal}` 
     });
 

@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let comandasIdsMap = {}; 
 
   const ordersGrid = document.getElementById('ordersGrid');
-  const API_URL = 'http://localhost:3000/api';
+  const API_URL = '/api';
 
   function showNotification(message, isError = false) {
     const existingToast = document.querySelector('.kontak-toast');

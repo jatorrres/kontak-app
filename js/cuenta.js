@@ -1,5 +1,5 @@
 let isEditing = false;
-const API_URL = 'http://localhost:3000/api';
+const API_URL = '/api';
 
 // Buscamos el correo unificando las llaves para que nunca falle
 let CURRENT_USER_EMAIL = localStorage.getItem('usuarioEmail') || localStorage.getItem('kontak_user_email');
@@ -36,8 +36,7 @@ function showNotification(message, isError = false) {
 // Cargar perfil desde la API
 async function getProfile() {
   try {
-    
-    const res = await (`${API_URL}/usuarios/perfil/${CURRENT_USER_EMAIL}`);
+    const res = await fetch(`${API_URL}/usuarios/perfil/${CURRENT_USER_EMAIL}`);
     const result = await res.json();
 
     if (result.success && result.data) {
@@ -55,16 +54,14 @@ async function getProfile() {
         const busNameInput = document.getElementById('businessName');
         const busCodeInput = document.getElementById('businessCode');
         
-        // CORRECCIÓN: Usar 'nombre' y 'codigo' que son los campos reales del modelo Negocio
         if (busNameInput) busNameInput.value = result.data.negocioId.nombre || '';
         if (busCodeInput) busCodeInput.value = result.data.negocioId.codigo || '';
       }
 
-      // En tu función getProfile() del frontend
-if (result.data.imagen) {
-  const cleanPath = result.data.imagen.startsWith('/') ? result.data.imagen : `/${result.data.imagen}`;
-  document.getElementById('avatarImg').src = `http://localhost:3000${cleanPath}`;
-}
+      if (result.data.imagen) {
+        const cleanPath = result.data.imagen.startsWith('/') ? result.data.imagen : `/${result.data.imagen}`;
+        document.getElementById('avatarImg').src = `${cleanPath}`;
+      }
     }
   } catch (err) {
     showNotification('⚠️ No se pudo conectar con el servidor', true);
@@ -100,12 +97,10 @@ window.previewAvatar = async function(event) {
     const result = await res.json();
 
     if (result.success) {
-      // Tomamos con seguridad la propiedad que devuelva el servidor
       const rutaFoto = result.foto_url || result.imagen;
       if (rutaFoto) {
         const cleanPath = rutaFoto.startsWith('/') ? rutaFoto : `/${rutaFoto}`;
-        // Forzamos la recarga de la imagen añadiendo un timestamp (?t=) para evitar que el navegador use caché vieja
-        document.getElementById('avatarImg').src = `http://localhost:3000${cleanPath}?t=${Date.now()}`;
+        document.getElementById('avatarImg').src = `${cleanPath}?t=${Date.now()}`;
       }
       showNotification('📷 Foto guardada en la base de datos');
     } else {
@@ -178,7 +173,6 @@ window.toggleEditProfile = function(forceState = null) {
   if (profileActions) profileActions.style.display = isEditing ? 'flex' : 'none';
 };
 
-// CORRECCIÓN CRÍTICA: Envío real al backend para cambiar la contraseña
 window.changePassword = async function(event) {
   event.preventDefault();
   const newPass = document.getElementById('newPassword').value;
@@ -231,3 +225,17 @@ window.togglePasswordSection = function(forceState = null) {
     document.getElementById('passwordForm').reset();
   }
 };
+
+// FUNCIONALIDAD PARA LOS OJITOS DE CONTRASEÑA
+document.addEventListener('click', (e) => {
+  const toggleIcon = e.target.closest('.toggle-password, i, svg');
+  if (!toggleIcon) return;
+
+  const container = toggleIcon.closest('div') || toggleIcon.parentElement;
+  const passwordInput = container ? container.querySelector('input') : null;
+
+  if (passwordInput && (passwordInput.type === 'password' || passwordInput.type === 'text')) {
+    const isPassword = passwordInput.type === 'password';
+    passwordInput.type = isPassword ? 'text' : 'password';
+  }
+});
