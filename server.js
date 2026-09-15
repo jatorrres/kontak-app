@@ -124,6 +124,30 @@ app.put('/api/usuarios/perfil', async (req, res) => {
   }
 });
 
+app.put('/api/usuarios/cambiar-password', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ success: false, message: 'Faltan datos obligatorios.' });
+    }
+
+    const emailLimpio = email.trim().toLowerCase();
+    const usuario = await Usuario.findOne({ email: emailLimpio });
+
+    if (!usuario) {
+      return res.status(404).json({ success: false, message: 'Usuario no encontrado.' });
+    }
+
+    usuario.password = password;
+    await usuario.save();
+
+    return res.json({ success: true, message: 'Contraseña actualizada correctamente.' });
+  } catch (error) {
+    console.error('Error al cambiar contraseña:', error);
+    return res.status(500).json({ success: false, message: 'Error interno al cambiar la contraseña.' });
+  }
+});
 // =============================================================
 // RUTAS DE CATEGORÍAS (ESPECÍFICAS POR NEGOCIO)
 // =============================================================

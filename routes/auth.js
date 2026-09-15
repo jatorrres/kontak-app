@@ -185,3 +185,42 @@ router.post('/recuperar', async (req, res) => {
     return res.status(500).json({ success: false, message: 'Error interno en el servidor.' });
   }
 });
+// RUTA PARA CAMBIAR CONTRASEÑA DESDE EL PERFIL
+router.put('/cambiar-password', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Por favor complete todos los campos.' 
+      });
+    }
+
+    const emailLimpio = email.trim().toLowerCase();
+    const usuario = await Usuario.findOne({ email: emailLimpio });
+
+    if (!usuario) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Usuario no encontrado.' 
+      });
+    }
+
+    // Actualizamos con la nueva contraseña
+    usuario.password = password;
+    await usuario.save();
+
+    return res.json({ 
+      success: true, 
+      message: 'Contraseña actualizada correctamente.' 
+    });
+
+  } catch (error) {
+    console.error('Error en /cambiar-password:', error);
+    return res.status(500).json({ 
+      success: false, 
+      message: 'Error interno en el servidor.' 
+    });
+  }
+});
