@@ -37,7 +37,7 @@ function showNotification(message, isError = false) {
 async function getProfile() {
   try {
     
-    const res = await fetch(`${API_URL}/usuarios/perfil/${CURRENT_USER_EMAIL}`);
+    const res = await (`${API_URL}/usuarios/perfil/${CURRENT_USER_EMAIL}`);
     const result = await res.json();
 
     if (result.success && result.data) {
@@ -93,7 +93,7 @@ window.previewAvatar = async function(event) {
   formData.append('email', CURRENT_USER_EMAIL);
 
   try {
-    const res = await fetch(`${API_URL}/usuarios/avatar`, {
+    const res = await fetch(`/api/usuarios/avatar`, {
       method: 'POST',
       body: formData
     });
@@ -131,7 +131,7 @@ window.saveProfile = async function(event) {
   };
 
   try {
-    const res = await fetch(`${API_URL}/usuarios/perfil`, {
+    const res = await fetch(`/api/usuarios/perfil`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(profileData)
@@ -195,7 +195,7 @@ window.changePassword = async function(event) {
   }
 
   try {
-    const res = await fetch(`${API_URL}/usuarios/cambiar-password`, {
+    const res = await fetch(`/api/usuarios/cambiar-password`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

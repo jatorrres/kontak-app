@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     userNegocioId = localStorage.getItem('negocioId') || localStorage.getItem('kontak_negocio_id');
 
     try {
-      const res = await fetch(`${API_URL}/usuarios/perfil/${currentUserEmail}`);
+      const res = await fetch(`/api/usuarios/perfil/${currentUserEmail}`);
       const datos = await res.json();
 
       if (datos.success && datos.data) {
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function cargarProductos() {
     try {
-      const res = await fetch(`${API_URL}/productos/negocio/${userNegocioId}`);
+      const res = await fetch(`/api/productos/negocio/${userNegocioId}`);
       const respuesta = await res.json();
 
       if (respuesta.success && Array.isArray(respuesta.data)) {
@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     try {
-      const res = await fetch(`${API_URL}/comandas`, {
+      const res = await fetch(`/api/comandas`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const res = await fetch(`${API_URL}/comandas/negocio/${userNegocioId}`);
+      const res = await fetch(`/api/comandas/negocio/${userNegocioId}`);
       const textoRespuesta = await res.text();
       
       try {
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let userNegocioId = localStorage.getItem('kontak_negocio_id') || localStorage.getItem('negocioId');
     
     try {
-      const response = await fetch(`${API_URL}/comandas`, {
+      const response = await fetch(`/api/comandas`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -389,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const response = await fetch(`${API_URL}/comandas/${comandaId}/pagar`, {
+      const response = await fetch(`/api/comandas/${comandaId}/pagar`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:3000/api/usuarios/perfil/${currentUserEmail}`);
+      const res = await (`http://localhost:3000/api/usuarios/perfil/${currentUserEmail}`);
       const datos = await res.json();
 
       if (datos.success && datos.data.negocioId) {
@@ -48,7 +48,7 @@ console.log("🟢 Negocio actual cargado en inventario:", userNegocioId);
   // Cargar categorías del negocio desde la BD
   async function cargarCategorias() {
     try {
-      const res = await fetch(`http://localhost:3000/api/categorias/negocio/${userNegocioId}`);
+      const res = await fetch(`/api/categorias/negocio/${userNegocioId}`);
       const textoRespuesta = await res.text();
       
       let respuesta;
@@ -75,7 +75,7 @@ console.log("🟢 Negocio actual cargado en inventario:", userNegocioId);
 
   async function crearCategoriaPorDefecto(nombre) {
     try {
-      const res = await fetch('http://localhost:3000/api/categorias', {
+      const res = await fetch('/api/categorias', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nombre, negocioId: userNegocioId })
@@ -93,7 +93,7 @@ console.log("🟢 Negocio actual cargado en inventario:", userNegocioId);
   // Cargar productos desde la base de datos
   async function cargarProductos() {
     try {
-      const res = await fetch(`http://localhost:3000/api/productos/negocio/${userNegocioId}`);
+      const res = await fetch(`/api/productos/negocio/${userNegocioId}`);
       const respuesta = await res.json();
       
       productosGlobales = respuesta.data || [];
@@ -203,7 +203,7 @@ console.log("🟢 Negocio actual cargado en inventario:", userNegocioId);
     }
 
     try {
-      const res = await fetch('http://localhost:3000/api/categorias', {
+      const res = await fetch('/api/categorias', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nombre: val, negocioId: userNegocioId })
@@ -240,7 +240,7 @@ console.log("🟢 Negocio actual cargado en inventario:", userNegocioId);
 
     if (confirm("¿Estás seguro de eliminar esta categoría?")) {
       try {
-        const res = await fetch(`http://localhost:3000/api/categorias/${id}`, {
+        const res = await fetch(`/api/categorias/${id}`, {
           method: 'DELETE'
         });
         const data = await res.json();
@@ -296,7 +296,7 @@ console.log("🟢 Negocio actual cargado en inventario:", userNegocioId);
     };
 
     try {
-      const res = await fetch('http://localhost:3000/api/productos', {
+      const res = await fetch('/api/productos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(nuevoProducto)
@@ -325,7 +325,7 @@ console.log("🟢 Negocio actual cargado en inventario:", userNegocioId);
     if (!productIdToDelete) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/api/productos/${productIdToDelete}`, {
+      const res = await fetch(`/api/productos/${productIdToDelete}`, {
         method: 'DELETE'
       });
 
