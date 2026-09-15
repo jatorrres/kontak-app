@@ -43,8 +43,23 @@
             </div>
           </div>
 
-          <!-- Opciones auxiliares -->
-          <a href="#" class="forgot-pass-link" onclick="alert('Instrucciones enviadas a tu correo')">¿Olvidaste tu contraseña?</a>
+          <!-- Enlace para abrir el modal o sección de recuperación -->
+<a href="#" id="forgotPasswordLink">¿Olvidaste tu contraseña?</a>
+
+<!-- Modal o sección oculta de recuperación -->
+<div id="forgotPasswordModal" class="kontak-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; justify-content: center; align-items: center;">
+  <div class="kontak-modal-content" style="background: #121212; border: 1px solid #333; padding: 24px; border-radius: 12px; width: 90%; max-width: 400px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); color: #fff; font-family: inherit;">
+    <h3 style="margin-top: 0; font-size: 1.2rem; margin-bottom: 12px; color: #fff;">🔑 Recuperar Contraseña</h3>
+    <p style="font-size: 0.85rem; color: #aaa; margin-bottom: 16px;">Ingresa el correo electrónico asociado a tu cuenta para generar una contraseña temporal.</p>
+    
+    <input type="email" id="recoveryEmail" placeholder="correo@ejemplo.com" style="width: 100%; padding: 10px 14px; background: #1a1a1a; border: 1px solid #333; border-radius: 8px; color: #fff; margin-bottom: 16px; box-sizing: border-box; font-size: 0.9rem;">
+    
+    <div style="display: flex; gap: 10px; justify-content: flex-end;">
+      <button id="closeRecoveryBtn" style="padding: 8px 16px; background: transparent; border: 1px solid #444; color: #ccc; border-radius: 6px; cursor: pointer;">Cancelar</button>
+      <button id="sendRecoveryBtn" style="padding: 8px 16px; background: #2563eb; border: none; color: #fff; border-radius: 6px; cursor: pointer; font-weight: 500;">Generar Clave</button>
+    </div>
+  </div>
+</div>
 
           <button type="submit" id="btnLogin" class="btn-primary btn-block">Ingresar</button>
         </form>

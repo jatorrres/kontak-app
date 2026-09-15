@@ -125,3 +125,56 @@ window.switchAuthTab = function(index) {
     swipeWrapper.style.transform = `translateX(-${index * 50}%)`;
   }
 };
+// Control del Modal de Recuperación
+document.addEventListener('DOMContentLoaded', () => {
+  const openModalLink = document.getElementById('forgotPasswordLink'); // El enlace de "Olvidé mi contraseña"
+  const modal = document.getElementById('forgotPasswordModal');
+  const closeBtn = document.getElementById('closeRecoveryBtn');
+  const sendBtn = document.getElementById('sendRecoveryBtn');
+
+  if (openModalLink && modal) {
+    openModalLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.style.display = 'flex';
+    });
+  }
+
+  if (closeBtn && modal) {
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+  }
+
+  if (sendBtn) {
+    sendBtn.addEventListener('click', async () => {
+      const emailInput = document.getElementById('recoveryEmail');
+      const email = emailInput ? emailInput.value.trim() : '';
+
+      if (!email) {
+        showNotification('⚠️ Por favor ingresa tu correo electrónico', true);
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/auth/recuperar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+
+        const result = await res.json();
+
+        if (result.success) {
+          showNotification(`✅ ${result.message}`);
+          modal.style.display = 'none';
+          emailInput.value = '';
+        } else {
+          showNotification(`❌ ${result.message}`, true);
+        }
+      } catch (error) {
+        console.error('Error de red:', error);
+        showNotification('⚠️ Error al conectar con el servidor', true);
+      }
+    });
+  }
+});

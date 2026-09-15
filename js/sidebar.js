@@ -68,3 +68,15 @@ window.toggleSidebar = function() {
     }
   }
 };
+// Reiniciar o ajustar el sidebar al cambiar la orientación del dispositivo
+window.addEventListener('orientationchange', () => {
+  const sidebar = document.querySelector('.sidebar') || document.getElementById('sidebar');
+  const overlay = document.querySelector('.sidebar-overlay'); // Si usas fondo oscuro al abrirlo
+
+  if (sidebar) {
+    sidebar.classList.remove('active', 'open'); // Cierra el menú para evitar estados fantasma
+  }
+  if (overlay) {
+    overlay.classList.remove('active');
+  }
+});

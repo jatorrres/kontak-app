@@ -39,7 +39,7 @@ router.post('/registro', async (req, res) => {
       // Usamos 'nombre' y 'codigo' para que coincidan con tu modelo de Mongoose
       const nuevoNegocio = new Negocio({
         nombre: nombreNegocio || `Negocio de ${nombre}`,
-        codigo: nuevoCodigo
+        codigoNegocio: nuevoCodigo 
       });
 
       negocioCreado = await nuevoNegocio.save();
@@ -151,3 +151,36 @@ router.post('/login', async (req, res) => {
 });
 
 module.exports = router;
+// RUTA DE RECUPERACIÓN DE CONTRASEÑA
+router.post('/recuperar', async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ success: false, message: 'Por favor ingrese el correo electrónico.' });
+    }
+
+    const emailLimpio = email.trim().toLowerCase();
+    const usuario = await Usuario.findOne({ email: emailLimpio });
+
+    if (!usuario) {
+      return res.status(404).json({ success: false, message: 'El correo no se encuentra registrado.' });
+    }
+
+    // Generar una contraseña temporal aleatoria
+    const passwordTemporal = 'TMP-' + Math.floor(1000 + Math.random() * 9000);
+    
+    // Guardarla en el usuario (si usas encriptación de hash, recuerda aplicarla aquí)
+    usuario.password = passwordTemporal;
+    await usuario.save();
+
+    return res.json({ 
+      success: true, 
+      message: `Contraseña temporal generada con éxito: ${passwordTemporal}` 
+    });
+
+  } catch (error) {
+    console.error('Error en /recuperar:', error);
+    return res.status(500).json({ success: false, message: 'Error interno en el servidor.' });
+  }
+});
