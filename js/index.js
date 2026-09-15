@@ -165,9 +165,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const result = await res.json();
 
         if (result.success) {
-          showNotification(`✅ ${result.message}`);
+          // 1. Ocultar el modal de recuperación (el que pide el correo)
           modal.style.display = 'none';
           emailInput.value = '';
+
+          // 2. Mostrar el modal centrado con la contraseña temporal para que el usuario la copie con calma
+          const tempModal = document.getElementById('tempPasswordModal');
+          const tempPasswordDisplay = document.getElementById('tempPasswordDisplay');
+
+          if (tempModal && tempPasswordDisplay) {
+            tempPasswordDisplay.textContent = result.passwordTemporal;
+            tempModal.style.display = 'flex'; // Muestra el modal fijo
+          }
         } else {
           showNotification(`❌ ${result.message}`, true);
         }
@@ -177,4 +186,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-});
+
+  // Asegurarnos de que el botón de cerrar del modal temporal funcione
+  const closeTempBtn = document.getElementById('closeTempModalBtn');
+  const tempModal = document.getElementById('tempPasswordModal');
+  if (closeTempBtn && tempModal) {
+    closeTempBtn.addEventListener('click', () => {
+      tempModal.style.display = 'none';
+    });
+  }
