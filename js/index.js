@@ -7,6 +7,76 @@ document.addEventListener('DOMContentLoaded', () => {
   if (loginForm) {
     loginForm.addEventListener('submit', handleLogin);
   }
+
+  // Control del Modal de Recuperación
+  const openModalLink = document.getElementById('forgotPasswordLink'); // El enlace de "Olvidé mi contraseña"
+  const modal = document.getElementById('forgotPasswordModal');
+  const closeBtn = document.getElementById('closeRecoveryBtn');
+  const sendBtn = document.getElementById('sendRecoveryBtn');
+
+  if (openModalLink && modal) {
+    openModalLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.style.display = 'flex';
+    });
+  }
+
+  if (closeBtn && modal) {
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+  }
+
+  if (sendBtn) {
+    sendBtn.addEventListener('click', async () => {
+      const emailInput = document.getElementById('recoveryEmail');
+      const email = emailInput ? emailInput.value.trim() : '';
+
+      if (!email) {
+        showNotification('⚠️ Por favor ingresa tu correo electrónico', true);
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/auth/recuperar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+
+        const result = await res.json();
+
+        if (result.success) {
+          // 1. Ocultar el modal de recuperación (el que pide el correo)
+          modal.style.display = 'none';
+          emailInput.value = '';
+
+          // 2. Mostrar el modal centrado con la contraseña temporal
+          const tempModal = document.getElementById('tempPasswordModal');
+          const tempPasswordDisplay = document.getElementById('tempPasswordDisplay');
+
+          if (tempModal && tempPasswordDisplay) {
+            tempPasswordDisplay.textContent = result.passwordTemporal;
+            tempModal.style.display = 'flex'; // Muestra el modal fijo
+          }
+        } else {
+          showNotification(`❌ ${result.message}`, true);
+        }
+      } catch (error) {
+        console.error('Error de red:', error);
+        showNotification('⚠️ Error al conectar con el servidor', true);
+      }
+    });
+  }
+
+  // Asegurarnos de que el botón de cerrar del modal temporal funcione
+  const closeTempBtn = document.getElementById('closeTempModalBtn');
+  const tempModal = document.getElementById('tempPasswordModal');
+  if (closeTempBtn && tempModal) {
+    closeTempBtn.addEventListener('click', () => {
+      tempModal.style.display = 'none';
+    });
+  }
 });
 
 // Alerta Integrada con Estilo Oscuro / Moderno acorde a Kontak
@@ -74,17 +144,14 @@ async function handleLogin(event) {
     if (result.success) {
       showNotification('✅ Inicio de sesión exitoso. Redirigiendo...');
 
-      // Limpiamos rastros previos para evitar cruces de sesión
       localStorage.clear();
 
-      // Guardamos exclusivamente los datos del usuario actual
       localStorage.setItem('token', result.data.token || '');
       localStorage.setItem('usuarioId', result.data.id || '');
       localStorage.setItem('usuarioNombre', result.data.nombre || '');
       localStorage.setItem('usuarioEmail', result.data.email || '');
       localStorage.setItem('usuarioRol', result.data.rol || '');
       
-      // Manejo seguro del negocioId por si viene como objeto u string
       const negocioIdValue = result.data.negocioId 
         ? (typeof result.data.negocioId === 'object' ? result.data.negocioId._id : result.data.negocioId)
         : '';
@@ -125,73 +192,3 @@ window.switchAuthTab = function(index) {
     swipeWrapper.style.transform = `translateX(-${index * 50}%)`;
   }
 };
-// Control del Modal de Recuperación
-document.addEventListener('DOMContentLoaded', () => {
-  const openModalLink = document.getElementById('forgotPasswordLink'); // El enlace de "Olvidé mi contraseña"
-  const modal = document.getElementById('forgotPasswordModal');
-  const closeBtn = document.getElementById('closeRecoveryBtn');
-  const sendBtn = document.getElementById('sendRecoveryBtn');
-
-  if (openModalLink && modal) {
-    openModalLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      modal.style.display = 'flex';
-    });
-  }
-
-  if (closeBtn && modal) {
-    closeBtn.addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
-  }
-
-  if (sendBtn) {
-    sendBtn.addEventListener('click', async () => {
-      const emailInput = document.getElementById('recoveryEmail');
-      const email = emailInput ? emailInput.value.trim() : '';
-
-      if (!email) {
-        showNotification('⚠️ Por favor ingresa tu correo electrónico', true);
-        return;
-      }
-
-      try {
-        const res = await fetch('/api/auth/recuperar', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email })
-        });
-
-        const result = await res.json();
-
-        if (result.success) {
-          // 1. Ocultar el modal de recuperación (el que pide el correo)
-          modal.style.display = 'none';
-          emailInput.value = '';
-
-          // 2. Mostrar el modal centrado con la contraseña temporal para que el usuario la copie con calma
-          const tempModal = document.getElementById('tempPasswordModal');
-          const tempPasswordDisplay = document.getElementById('tempPasswordDisplay');
-
-          if (tempModal && tempPasswordDisplay) {
-            tempPasswordDisplay.textContent = result.passwordTemporal;
-            tempModal.style.display = 'flex'; // Muestra el modal fijo
-          }
-        } else {
-          showNotification(`❌ ${result.message}`, true);
-        }
-      } catch (error) {
-        console.error('Error de red:', error);
-        showNotification('⚠️ Error al conectar con el servidor', true);
-      }
-    });
-  }
-
-  // Asegurarnos de que el botón de cerrar del modal temporal funcione
-  const closeTempBtn = document.getElementById('closeTempModalBtn');
-  const tempModal = document.getElementById('tempPasswordModal');
-  if (closeTempBtn && tempModal) {
-    closeTempBtn.addEventListener('click', () => {
-      tempModal.style.display = 'none';
-    });
-  }
